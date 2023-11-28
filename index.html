@@ -8,21 +8,73 @@
   
   <title>Frontend Mentor | QR code component</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: hsl(220, 15%, 55%);
+      font-family: 'Outfit', sans-serif;
+    }
+    .container{
+      height: 900px;
+      display: flex;
+    }
+    .card {
+      width: 250px;
+      height: 380px;
+      background-color: hsl(0, 0%, 100%);
+      margin: auto;
+      border-radius: 20px;
+      padding: 15px;
+      text-align: center;
+    }
+    .card .image {
+      width: 100%;
+      background-color: red;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      display: block;
+    }
+    .card .topic {
+      font-weight: bold;
+      margin: 10px;
+    }
+    .card .description {
+      font-size: 15px;
+    }
+
+
   </style>
 </head>
 <body>
 
-  Improve your front-end skills by building projects
-
-  Scan the QR code to visit Frontend Mentor and take your coding skills to the next level
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+  <div class="container">
+    <div class="card">
+      <div class="image">
+        <img src="./images/image-qr-code.png" alt="qr">
+      </div>
+      <div class="topic">
+        Improve your front-end skills by building projects
+      </div>
+      <div class="description">
+        Scan the QR code to visit Frontend Mentor and take your coding skills to the next level
+      </div>
+    </div>
   </div>
+
 </body>
 </html>
