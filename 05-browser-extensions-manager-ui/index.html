@@ -1,80 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Browser extensions manager UI</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <title>Frontend Mentor | Browser extensions manager UI</title>
 
-  Extensions List
+    <link rel="stylesheet" href="./assets/fonts/NotoSans.css" />
 
-  All
-  Active
-  Inactive
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+        background: linear-gradient(180deg, #040918 0%, #091540 100%);
+        color: hsl(200, 60%, 99%);
+      }
+      body.light-mode {
+        background: linear-gradient(180deg, #ebf2fc 0%, #eef8f9 100%);
+        color: hsl(227, 75%, 14%);
+      }
+      .container {
+        width: 62%;
+        margin: 20px auto;
+        font-family: "Noto Sans", sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .header {
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: hsl(226, 25%, 17%);
+        padding: 4px 10px;
+        border-radius: 12px;
+      }
+      .header > img {
+        height: 30px;
+      }
+      #theme-toggle {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .theme-toggle-dark-bg {
+        background-color: hsl(225, 23%, 24%);
+      }
+      #theme-toggle > img {
+        width: 18px;
+      }
+      .theme-toggle-light-bg {
+        background-color: hsl(0, 0%, 78%);
+      }
+      .estados-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 25px;
+      }
+      .estados-header .filter-buttons {
+        display: flex;
+        gap: 10px;
+      }
+      .filter-buttons button:hover {
+        background-color: hsl(3, 86%, 64%);
+        color: hsl(227, 75%, 14%);
+        border-color: transparent;
+      }
+      .filter-button {
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-align: center;
+        cursor: pointer;
+        color: inherit;
+        font: inherit;
+        font-size: 12px;
+        background-color: hsl(226, 25%, 17%);
+        border: 1px solid hsl(226, 11%, 37%);
+      }
+      .filter-button-active {
+        background-color: hsl(3, 86%, 64%) !important;
+        color: hsl(227, 75%, 14%) !important;
+        border-color: transparent !important;
+      }
 
-  <!-- If you plan to use the JSON file to populate the data dynamically, you can delete the content below -->
+      #extensions-list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 10px;
+      }
+      .extension-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 270px;
+        height: 120px;
+        border-radius: 15px;
+        font-size: 12px;
+        padding: 10px;
+        border: 1px solid hsl(226, 11%, 37%);
+        background-color: hsl(226, 25%, 17%);
+      }
+      .light-element {
+        background-color: hsl(200, 60%, 99%);
+        color: hsl(227, 75%, 14%);
+      }
+      .extension-item img {
+        width: 38px;
+        display: inline-block;
+      }
+      .extension-item button {
+        width: 60px;
+        height: 26px;
+        border-radius: 13px;
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: 1px solid hsl(226, 11%, 37%);
+      }
+      .extension-item .image-text {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .extension-item .image-text p {
+        font-size: 10px;
+      }
+      .extension-item .button-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .toggle {
+        width: 25px;
+        height: 14px;
+        border-radius: 7px;
+        background-color: hsl(226, 11%, 37%);
+        display: flex;
+      }
+      .toggle-circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 7px;
+        background-color: #ffffff;
+      }
+      .toggle-inactive {
+        background-color: hsl(226, 11%, 37%);
+        justify-content: flex-start;
+      }
+      .toggle-active {
+        background-color: hsl(3, 86%, 64%);
+        justify-content: flex-end;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="./assets/images/logo.svg" alt="Imagen de logo" />
+        <div id="theme-toggle" class="theme-toggle-dark-bg">
+          <img
+            id="theme-toggle-icon"
+            src="./assets/images/icon-sun.svg"
+            alt="Ícono de sol"
+          />
+        </div>
+      </div>
 
-  DevLens
-  Quickly inspect page layouts and visualize element boundaries.
-  Remove
+      <div class="estados-header">
+        <h2>Extensions List</h2>
+        <div class="filter-buttons">
+          <button id="btn-all" class="filter-button filter-button-active">
+            All
+          </button>
+          <button id="btn-active" class="filter-button">Active</button>
+          <button id="btn-inactive" class="filter-button">Inactive</button>
+        </div>
+      </div>
 
-  StyleSpy
-  Instantly analyze and copy CSS from any webpage element.
-  Remove
+      <div id="extensions-list"></div>
+    </div>
+    <script>
+      let filterState = "all";
 
-  SpeedBoost
-  Optimizes browser resource usage to accelerate page loading.
-  Remove
+      function loadExtensionsList(data) {
+        const extensionsList = document.getElementById("extensions-list");
+        extensionsList.innerHTML = "";
 
-  JSONWizard
-  Formats, validates, and prettifies JSON responses in-browser.
-  Remove
+        const isLight = document.body.classList.contains("light-mode");
 
-  TabMaster Pro
-  Organizes browser tabs into groups and sessions.
-  Remove
+        for (item of data) {
+          if (filterState === "active" && !item.isActive) continue;
+          if (filterState === "inactive" && item.isActive) continue;
 
-  ViewportBuddy
-  Simulates various screen resolutions directly within the browser.
-  Remove
+          const icon = document.createElement("img");
+          icon.src = item.logo;
 
-  Markup Notes
-  Enables annotation and notes directly onto webpages for collaborative debugging.
-  Remove
+          const title = document.createElement("h3");
+          title.textContent = item.name;
+          const description = document.createElement("p");
+          description.textContent = item.description;
+          const titleDescription = document.createElement("div");
+          titleDescription.appendChild(title);
+          titleDescription.appendChild(description);
 
-  GridGuides
-  Overlay customizable grids and alignment guides on any webpage.
-  Remove
+          const iconText = document.createElement("div");
+          iconText.classList.add("image-text");
+          iconText.appendChild(icon);
+          iconText.appendChild(titleDescription);
 
-  Palette Picker
-  Instantly extracts color palettes from any webpage.
-  Remove
+          const removeBtn = document.createElement("button");
+          removeBtn.textContent = "Remove";
+          removeBtn.addEventListener("click", (event) => {
+            const extensionItem = event.target.closest(".extension-item");
+            const index = data.findIndex((e) => e.id == extensionItem.id);
+            data.splice(index, 1);
+            loadExtensionsList(data);
+          });
 
-  LinkChecker
-  Scans and highlights broken links on any page.
-  Remove
+          const toggle = document.createElement("div");
+          toggle.classList.add(
+            "toggle",
+            item.isActive ? "toggle-active" : "toggle-inactive"
+          );
+          const toggleCircle = document.createElement("div");
+          toggleCircle.classList.add("toggle-circle");
+          toggle.appendChild(toggleCircle);
+          toggle.addEventListener("click", (event) => {
+            const extensionItem = event.target.closest(".extension-item");
 
-  DOM Snapshot
-  Capture and export DOM structures quickly.
-  Remove
+            const itemData = data.find((e) => e.id == extensionItem.id); // number y string
+            itemData.isActive = !itemData.isActive;
+            if (filterState !== "all") {
+              loadExtensionsList(data);
+            }
+            if (toggle.classList.contains("toggle-active")) {
+              toggle.classList.replace("toggle-active", "toggle-inactive");
+            } else {
+              toggle.classList.replace("toggle-inactive", "toggle-active");
+            }
+          });
 
-  ConsolePlus
-  Enhanced developer console with advanced filtering and logging.
-  Remove
+          const buttonToggle = document.createElement("div");
+          buttonToggle.classList.add("button-toggle");
+          buttonToggle.appendChild(removeBtn);
+          buttonToggle.appendChild(toggle);
 
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+          const itemElement = document.createElement("div");
+          itemElement.classList.add("extension-item");
+          if (isLight) itemElement.classList.add("light-element");
+          itemElement.id = item.id;
+          itemElement.appendChild(iconText);
+          itemElement.appendChild(buttonToggle);
+
+          extensionsList.appendChild(itemElement);
+        }
+      }
+
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        const isLight = document.body.classList.contains("light-mode");
+
+        const extensionItems =
+          document.getElementsByClassName("extension-item");
+        for (const item of extensionItems) {
+          item.classList.toggle("light-element");
+        }
+
+        const filterButtons = document.getElementsByClassName("filter-button");
+        for (const filterButton of filterButtons) {
+          filterButton.classList.toggle("light-element");
+        }
+
+        const headers = document.getElementsByClassName("header");
+        headers[0].classList.toggle("light-element");
+        const themeToggleIcon = document.getElementById("theme-toggle-icon");
+        themeToggleIcon.src = isLight
+          ? "./assets/images/icon-moon.svg"
+          : "./assets/images/icon-sun.svg";
+
+        themeToggle.classList.toggle("theme-toggle-light-bg");
+
+        localStorage.setItem(
+          "theme-mode",
+          document.body.classList.contains("light-mode") ? "light" : "dark"
+        );
+      });
+
+      fetch("data.json")
+        .then((response) => response.json())
+        .then((data) => {
+          data = data.map((e, index) => ({ ...e, id: index }));
+          console.log(data);
+
+          loadExtensionsList(data);
+
+          const btnAll = document.getElementById("btn-all");
+          btnAll.addEventListener("click", () => {
+            filterState = "all";
+            document
+              .getElementById("btn-active")
+              .classList.remove("filter-button-active");
+            document
+              .getElementById("btn-inactive")
+              .classList.remove("filter-button-active");
+            btnAll.classList.add("filter-button-active");
+            loadExtensionsList(data);
+          });
+          const btnActive = document.getElementById("btn-active");
+          btnActive.addEventListener("click", () => {
+            filterState = "active";
+            document
+              .getElementById("btn-all")
+              .classList.remove("filter-button-active");
+            document
+              .getElementById("btn-inactive")
+              .classList.remove("filter-button-active");
+            btnActive.classList.add("filter-button-active");
+            loadExtensionsList(data);
+          });
+          const btnInactive = document.getElementById("btn-inactive");
+          btnInactive.addEventListener("click", () => {
+            filterState = "inactive";
+            document
+              .getElementById("btn-all")
+              .classList.remove("filter-button-active");
+            document
+              .getElementById("btn-active")
+              .classList.remove("filter-button-active");
+            btnInactive.classList.add("filter-button-active");
+            loadExtensionsList(data);
+          });
+
+          // const isLight = localStorage.getItem("theme-mode") === "light";
+          // if (isLight) {
+          //   document.body.classList.add("light-mode");
+          //   const extensionItems =
+          //     document.getElementsByClassName("extension-item");
+          //   console.log(extensionItems);
+          //   for (const item of extensionItems) {
+          //     item.classList.add("item-light");
+          //   }
+          // }
+        });
+    </script>
+  </body>
 </html>
